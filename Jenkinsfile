@@ -1,20 +1,22 @@
 pipeline {
   agent any
-  stages('checkout'){
+  stages{
+    stage('checkout'){
     steps{
       git url: 'https://github.com/ankulnvs007/DevOpsAssignment.git' , branch: 'master'
     }
   }
 
-stages('build'){
+stage('build'){
     steps{
       sh 'dotnet build'
     }
   }
 
-stages('test'){
+stage('test'){
     steps{
       sh 'dotnet test'
     }
   }
+}
 }
