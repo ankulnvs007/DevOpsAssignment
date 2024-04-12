@@ -50,8 +50,9 @@ pipeline {
         stage('Run Container') {
             steps {
                 script {
-                    // Stop the currently running container (if any)
-                    //sh 'docker rm -f ${IMAGE_NAME} || true'
+                    // Stop and remove the existing container if it exists
+                    sh 'docker stop devopsdotnet || true'
+                    sh 'docker rm devopsdotnet || true'
                     // Run the new container
                     sh "docker run -d --name devopsdotnet -p 8000:80 ${IMAGE_NAME}:${IMAGE_TAG}"
                 }
