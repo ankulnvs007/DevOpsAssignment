@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "DTpcpugXgi73IeAc3AFBzBrbViO+EJWCwiQ+MIGsC3Ii6MLSHVe1XvPqGOSTwpSSbwtmV2udXxzVWLvRZYDe+w==",
+  "dgSpecHash": "gi1yE0PXnoAy4Cb01KJasXSQFgg9cqIxCg7ubKfnb5TXge1cPLh99AYd3uvN75PptSMAmpxZ0XoUmzDc6ukK2g==",
   "success": true,
   "projectFilePath": "C:\\Users\\ankulrathour\\OneDrive - Nagarro\\Desktop\\DevOps Assignment\\Project.API\\DevopsAssignment\\Devops.API.Tests\\Devops.API.Tests.csproj",
   "expectedPackageFiles": [
@@ -13,6 +13,7 @@
     "C:\\Users\\ankulrathour\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
     "C:\\Users\\ankulrathour\\.nuget\\packages\\microsoft.testplatform.objectmodel\\17.5.0\\microsoft.testplatform.objectmodel.17.5.0.nupkg.sha512",
     "C:\\Users\\ankulrathour\\.nuget\\packages\\microsoft.testplatform.testhost\\17.5.0\\microsoft.testplatform.testhost.17.5.0.nupkg.sha512",
+    "C:\\Users\\ankulrathour\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.18.1\\microsoft.visualstudio.azure.containers.tools.targets.1.18.1.nupkg.sha512",
     "C:\\Users\\ankulrathour\\.nuget\\packages\\microsoft.win32.primitives\\4.3.0\\microsoft.win32.primitives.4.3.0.nupkg.sha512",
     "C:\\Users\\ankulrathour\\.nuget\\packages\\mstest.testframework\\3.2.2\\mstest.testframework.3.2.2.nupkg.sha512",
     "C:\\Users\\ankulrathour\\.nuget\\packages\\netstandard.library\\1.6.1\\netstandard.library.1.6.1.nupkg.sha512",
