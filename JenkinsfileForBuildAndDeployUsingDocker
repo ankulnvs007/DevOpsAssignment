@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = 'devops/dotnetapi'
+        IMAGE_NAME = 'ankulnvs007/devopsdotnetapi'
         IMAGE_TAG = 'latest'
     }
 
