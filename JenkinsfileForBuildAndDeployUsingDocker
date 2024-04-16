@@ -60,10 +60,15 @@ pipeline {
         }
         stage('Deploy to AWS') {
             steps {
-                step($class: 'AWSEBDeploymentBuilder',
-                    credentialId: AKIATCKAPQLVQD5ZFSNS,
-                    awsRegion: stolkhome,
-                    environmentName: jenkins-with-elasticbeanstalk,
+                script {
+                    def elasticBeanstalk = [$class: 'AWSEBDeploymentBuilder',
+                                            credentialId: 'jenkins-user-credetials',
+                                            region: 'Global',
+                                            applicationName: 'Jenikns-with-elasticbeanstalk',
+                                            environmentName: 'Jenikns-with-elasticbeanstalk-env']
+                    elasticBeanstalk.deployCreate()
+                    elasticBeanstalk.deployWait()
+                }
             }
         }
     }
