@@ -66,8 +66,9 @@ pipeline {
                                             region: 'stolkholm',
                                             applicationName: 'Jenikns-with-elasticbeanstalk',
                                             environmentName: 'Jenikns-with-elasticbeanstalk-env']
-                    elasticBeanstalk.deployCreate()
-                    elasticBeanstalk.deployWait()
+                    elasticBeanstalk.withAWS() {
+                        elasticBeanstalk.deployApplication(versionLabel: 'latest')
+                    }
                 }
             }
         }
