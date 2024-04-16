@@ -63,7 +63,7 @@ pipeline {
                 script {
                     def elasticBeanstalk = [$class: 'AWSEBDeploymentBuilder',
                                             credentialId: 'jenkins-user-credetials',
-                                            region: 'Global',
+                                            region: 'stolkholm',
                                             applicationName: 'Jenikns-with-elasticbeanstalk',
                                             environmentName: 'Jenikns-with-elasticbeanstalk-env']
                     elasticBeanstalk.deployCreate()
