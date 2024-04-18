@@ -66,8 +66,16 @@ pipeline {
                                             region: 'ap-south-1',
                                             applicationName: 'jenkins-beanstalk',
                                             environmentName: 'jenkins-beanstalk-env']
-                    elasticBeanstalk.withAWS() {
-                        elasticBeanstalk.deployApplication(versionLabel: 'latest')
+         
+                    try {
+                        elasticBeanstalk.withAWS() {
+                            echo "Deploying application to Elastic Beanstalk environment ${elasticBeanstalk.environmentName}"
+                            elasticBeanstalk.deployApplication(versionLabel: 'latest')
+                            echo "Application deployed successfully"
+                        }
+                    } catch (err) {
+                        echo "Error deploying application to Elastic Beanstalk environment: ${err.message}"
+                        currentBuild.result = 'FAILURE'
                     }
                 }
             }
