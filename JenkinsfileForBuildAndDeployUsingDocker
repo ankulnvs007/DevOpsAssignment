@@ -59,30 +59,18 @@ pipeline {
             }
         }
         stage('Deploy to AWS') {
-    steps {
-        script {
-            def elasticBeanstalk = [$class: 'AWSEBDeploymentBuilder',
-                                    credentialId: 'jenkins-user-credetials',
-                                    region: 'stolkholm',
-                                    applicationName: 'Jenikns-with-elasticbeanstalk',
-                                    environmentName: 'Jenikns-with-elasticbeanstalk-env']
- 
-            // Change to the root directory of your .NET 6.0 application
-            sh 'cd path/to/your/dotnet/application'
- 
-            // Restore dependencies, build, and publish the application
-            sh 'dotnet restore'
-            sh 'dotnet build --configuration Release'
-            sh 'dotnet publish -o publish-output'
- 
-            // Set the appPackagePath to the published output directory
-            elasticBeanstalk.appPackagePath = 'path/to/your/dotnet/application/publish-output'
- 
-            elasticBeanstalk.withAWS() {
-                elasticBeanstalk.deployApplication(versionLabel: 'latest')
+            steps {
+                script {
+                    def elasticBeanstalk = [$class: 'AWSEBDeploymentBuilder',
+                                            credentialId: 'jenkins-user-credetials',
+                                            region: 'ap-south-1',
+                                            applicationName: 'jenkins-beanstalk',
+                                            environmentName: 'jenkins-beanstalk-env']
+                    elasticBeanstalk.withAWS() {
+                        elasticBeanstalk.deployApplication(versionLabel: 'latest')
+                    }
+                }
             }
         }
-    }
-}
     }
 }
