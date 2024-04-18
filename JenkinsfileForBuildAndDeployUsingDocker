@@ -68,7 +68,7 @@ pipeline {
                                             environmentName: 'jenkins-beanstalk-env']
          
                     try {
-                        elasticBeanstalk.withAWS() {
+                            withAWS(credentials: 'jenkins-user-credetials', region: 'ap-south-1') {
                             echo "Deploying application to Elastic Beanstalk environment ${elasticBeanstalk.environmentName}"
                             elasticBeanstalk.deployApplication(versionLabel: 'latest')
                             echo "Application deployed successfully"
