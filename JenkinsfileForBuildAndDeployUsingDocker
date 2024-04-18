@@ -58,17 +58,17 @@ pipeline {
                 }
             }
         }
-        stage('Deploy to AWS') {
-            steps {
-                script {
-                    withAWS(credentials: 'jenkins-user-credetials', region: 'ap-south-1') {
-                    def elasticBeanstalk = [$class: 'AWSEBDeploymentBuilder',
-                    applicationName: 'Jenikns-with-elasticbeanstalk',
-                    environmentName: 'Jenikns-with-elasticbeanstalk-env']
-                    elasticBeanstalk.deployApplication(versionLabel: 'latest')
-            }
-        }
-    }
-}
+        //stage('Deploy to AWS') {
+            //steps {
+              //  script {
+                //    withAWS(credentials: 'jenkins-user-credetials', region: 'ap-south-1') {
+                 //   def elasticBeanstalk = [$class: 'AWSEBDeploymentBuilder',
+                  //  applicationName: 'Jenikns-with-elasticbeanstalk',
+                  //  environmentName: 'Jenikns-with-elasticbeanstalk-env']
+                  //  elasticBeanstalk.deployApplication(versionLabel: 'latest')
+                    //}
+               // }
+           // }
+       // }
     }
 }
