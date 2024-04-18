@@ -61,16 +61,14 @@ pipeline {
         stage('Deploy to AWS') {
             steps {
                 script {
+                    withAWS(credentials: 'jenkins-user-credetials', region: 'ap-south-1') {
                     def elasticBeanstalk = [$class: 'AWSEBDeploymentBuilder',
-                                            credentialId: 'jenkins-user-credetials',
-                                            region: 'ap-south-1',
-                                            applicationName: 'jenkins-with-elasticbeanstalk',
-                                            environmentName: 'jenkins-with-elasticbeanstalk-env']
-                    elasticBeanstalk.withAWS() {
-                        elasticBeanstalk.deployApplication(versionLabel: 'latest')
-                    }
-                }
+                    applicationName: 'Jenikns-with-elasticbeanstalk',
+                    environmentName: 'Jenikns-with-elasticbeanstalk-env']
+                    elasticBeanstalk.deployApplication(versionLabel: 'latest')
             }
         }
+    }
+}
     }
 }
