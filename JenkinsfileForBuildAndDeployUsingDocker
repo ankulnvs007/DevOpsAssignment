@@ -61,12 +61,21 @@ pipeline {
         stage('Deploy to AWS') {
             steps {
                 script {
-                    withAWS(region: 'ap-south-1', credentials: 'jenkins-user-credentials') {
-                        def elasticBeanstalk = [$class: 'AWSEBDeploymentBuilder',
-                                                region: 'ap-south-1',
-                                                applicationName: 'jenkins-beanstalk',
-                                                environmentName: 'jenkins-beanstalk-env']
-                        elasticBeanstalk.deployApplication(versionLabel: 'latest')
+                    def elasticBeanstalk = [$class: 'AWSEBDeploymentBuilder',
+                                            credentialId: 'jenkins-user-credetials',
+                                            region: 'ap-south-1',
+                                            applicationName: 'jenkins-beanstalk',
+                                            environmentName: 'jenkins-beanstalk-env']
+         
+                    try {
+                        elasticBeanstalk.withAWS() {
+                            echo "Deploying application to Elastic Beanstalk environment ${elasticBeanstalk.environmentName}"
+                            elasticBeanstalk.deployApplication(versionLabel: 'latest')
+                            echo "Application deployed successfully"
+                        }
+                    } catch (err) {
+                        echo "Error deploying application to Elastic Beanstalk environment: ${err.message}"
+                        currentBuild.result = 'FAILURE'
                     }
                 }
             }
