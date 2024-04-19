@@ -58,28 +58,16 @@ pipeline {
                 }
             }
         }
-        stage('Deploy to AWS') {
+        stage('Deploy to Elastic Beanstalk') {
             steps {
                 script {
-                    def elasticBeanstalk = [$class: 'AWSEBDeploymentBuilder',
-                                            credentialId: 'jenkins-user-credetials',
-                                            region: 'ap-south-1',
-                                            applicationName: 'jenkins-beanstalk',
-                                            environmentName: 'jenkins-beanstalk-env']
-         
-                    try {
-                            withAWS(region: 'ap-south-1', credentials: 'jenkins-user-credetials') {
-                            def eb = aws_eb.createApplicationVersion(
-                                applicationName: jenkins-beanstalk                             
-                            )
-                            aws_eb.updateEnvironment(
-                                applicationName: jenkins-beanstalk,
-                                environmentName: jenkins-beanstalk-env
-                            )
-                        }
-                    } catch (err) {
-                        echo "Error deploying application to Elastic Beanstalk environment: ${err.message}"
-                        currentBuild.result = 'FAILURE'
+                    withAWS(region: ap-south-1, credentials: 'jenkins-user-credetials') {
+                        aws_eb.updateEnvironment(
+                            applicationName: jenkins-beanstalk,
+                            environmentName: jenkins-beanstalk-env,
+                            versionLabel: "${BUILD_NUMBER}",
+                            solutionStackName: '64bit Amazon Linux 2 v5.4.7 running Docker'
+                        )
                     }
                 }
             }
