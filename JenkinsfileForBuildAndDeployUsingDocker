@@ -77,7 +77,6 @@ pipeline {
                                 environmentName: jenkins-beanstalk-env
                             )
                         }
-                        }
                     } catch (err) {
                         echo "Error deploying application to Elastic Beanstalk environment: ${err.message}"
                         currentBuild.result = 'FAILURE'
