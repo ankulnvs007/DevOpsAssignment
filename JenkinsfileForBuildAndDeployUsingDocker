@@ -4,9 +4,6 @@ pipeline {
     environment {
         IMAGE_NAME = 'ankulnvs007/devopsdotnetapi'
         IMAGE_TAG = 'latest'
-        EB_APPLICATION_NAME = 'jenkins-beanstalk'
-        EB_ENVIRONMENT_NAME = 'jenkins-beanstalk-env'
-        AWS_REGION = 'ap-south-1'
     }
 
     stages {
@@ -64,11 +61,21 @@ pipeline {
         stage('Deploy to AWS') {
             steps {
                 script {
-                    withAWS(credentials: 'jenkins-user-credetial', region: 'ap-south-1') {
-                        def elasticBeanstalk = [$class: 'AWSEBDeploymentBuilder',
-                                                applicationName: 'jenkins-beanstalk',
-                                                environmentName: 'jenkins-beanstalk-env']
-                        elasticBeanstalk.deployApplication(versionLabel: 'latest')
+                    def elasticBeanstalk = [$class: 'AWSEBDeploymentBuilder',
+                                            credentialId: 'jenkins-user-credetial',
+                                            region: 'ap-south-1',
+                                            applicationName: 'jenkins-beanstalk',
+                                            environmentName: 'jenkins-beanstalk-env']
+         
+                    try {
+                        elasticBeanstalk.withAWS() {
+                            echo "Deploying application to Elastic Beanstalk environment ${elasticBeanstalk.environmentName}"
+                            elasticBeanstalk.deployApplication(versionLabel: 'latest')
+                            echo "Application deployed successfully"
+                        }
+                    } catch (err) {
+                        echo "Error deploying application to Elastic Beanstalk environment: ${err.message}"
+                        currentBuild.result = 'FAILURE'
                     }
                 }
             }
