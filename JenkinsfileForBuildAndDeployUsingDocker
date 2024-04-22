@@ -8,7 +8,6 @@ pipeline {
         EB_APPLICATION_NAME = 'jenkins-beanstalk'
         EB_ENVIRONMENT_NAME = 'jenkins-beanstalk-env'
         AWS_REGION = 'ap-south-1'
-        DOTNET_APP_PATH = './path/to/your/.net6/app'
     }
 
     stages {
