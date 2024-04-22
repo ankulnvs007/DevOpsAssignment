@@ -4,6 +4,11 @@ pipeline {
     environment {
         IMAGE_NAME = 'ankulnvs007/devopsdotnetapi'
         IMAGE_TAG = 'latest'
+        AWS_CREDENTIALS_ID = 'jenkins-user-credential'
+        EB_APPLICATION_NAME = 'jenkins-beanstalk'
+        EB_ENVIRONMENT_NAME = 'jenkins-beanstalk-env'
+        AWS_REGION = 'ap-south-1'
+        DOTNET_APP_PATH = './path/to/your/.net6/app'
     }
 
     stages {
@@ -58,20 +63,17 @@ pipeline {
                 }
             }
         }
-        stage('Deploy to AWS') {
-    steps {
-        script {
-            def awsRegion = 'ap-south-1' // Define the AWS region variable
-            withAWS(region: awsRegion, credentials: 'jenkins-user-credential') {
-                def elasticBeanstalk = [$class: 'AWSEBDeploymentBuilder',
-                                        region: ap-south-1, // Reference the AWS region variable
-                                        applicationName: 'jenkins-beanstalk',
-                                        environmentName: 'jenkins-beanstalk-env']
-                elasticBeanstalk.deployApplication(versionLabel: 'latest')
+        stage('Deploy to Elastic Beanstalk') {
+            steps {
+                // Deploy the application to Elastic Beanstalk
+                withAWS(credentials: AWS_CREDENTIALS, region: AWS_REGION) {
+                    // Get the application path dynamically
+                    def appPath = pwd()
+                    
+                    // Deploy the application to Elastic Beanstalk
+                    sh "eb deploy ${EB_ENVIRONMENT_NAME} --profile ${AWS_CREDENTIALS} --region ${AWS_REGION} --dir ${appPath}"
+                }
             }
         }
-    }
-}
-
     }
 }
