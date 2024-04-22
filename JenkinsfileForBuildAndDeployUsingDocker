@@ -1,4 +1,4 @@
-import com.amazonaws.services.elasticbeanstalk.model.AWSEBDeployment
+import com.amazonaws.services.elasticbeanstalk.AWSElasticBeanstalk
 pipeline {
     agent any
 
