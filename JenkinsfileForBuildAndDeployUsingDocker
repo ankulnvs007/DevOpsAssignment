@@ -7,7 +7,6 @@ pipeline {
         EB_APPLICATION_NAME = 'jenkins-beanstalk'
         EB_ENVIRONMENT_NAME = 'jenkins-beanstalk-env'
         AWS_REGION = 'ap-south-1'
-        PATH = "/path/to/eb:$PATH"
     }
 
     stages {
@@ -65,13 +64,10 @@ pipeline {
         stage('Deploy to Elastic Beanstalk') {
             steps {
                 script {
-                    // Navigate to the directory containing your Dockerfile
-                    dir("${PATH}") {
-                        // Initialize Elastic Beanstalk environment if it doesn't exist
-                        sh "eb init ${EB_APPLICATION_NAME} --region ${AWS_REGION} --platform Docker --quiet || true"
-                        // Deploy the Docker image to Elastic Beanstalk
-                        sh "eb deploy ${EB_ENVIRONMENT_NAME} --profile docker_login --region ${AWS_REGION} --label ${IMAGE_TAG}"
-                    }
+                    // Initialize Elastic Beanstalk environment if it doesn't exist
+                    sh "eb init ${EB_APPLICATION_NAME} --region ${AWS_REGION} --platform Docker --quiet || true"
+                    // Deploy the Docker image to Elastic Beanstalk
+                    sh "eb deploy ${EB_ENVIRONMENT_NAME} --profile docker_login --region ${AWS_REGION} --label ${IMAGE_TAG}"
                 }
             }
         }
