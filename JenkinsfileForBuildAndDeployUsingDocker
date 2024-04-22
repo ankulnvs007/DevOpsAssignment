@@ -61,13 +61,15 @@ pipeline {
                 }
             }
         }
-        stage('Deploy to Elastic Beanstalk') {
+        stage('Deploy to AWS') {
             steps {
                 script {
-                    // Initialize Elastic Beanstalk environment if it doesn't exist
-                    sh "eb init ${EB_APPLICATION_NAME} --region ${AWS_REGION} --platform Docker --quiet || true"
-                    // Deploy the Docker image to Elastic Beanstalk
-                    sh "eb deploy ${EB_ENVIRONMENT_NAME} --profile docker_login --region ${AWS_REGION} --label ${IMAGE_TAG}"
+                    withAWS(credentials: 'jenkins-user-credetial', region: 'ap-south-1') {
+                        def elasticBeanstalk = [$class: 'AWSEBDeploymentBuilder',
+                                                applicationName: 'jenkins-beanstalk',
+                                                environmentName: 'jenkins-beanstalk-env']
+                        elasticBeanstalk.deployApplication(versionLabel: 'latest')
+                    }
                 }
             }
         }
