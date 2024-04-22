@@ -1,3 +1,4 @@
+import com.amazonaws.services.elasticbeanstalk.model.AWSEBDeployment
 pipeline {
     agent any
 
