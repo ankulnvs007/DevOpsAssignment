@@ -70,7 +70,7 @@ pipeline {
                     def workspacePath = env.WORKSPACE
                     
                     // Deploy the application to Elastic Beanstalk
-                    sh "eb deploy ${EB_ENVIRONMENT_NAME} --profile ${AWS_CREDENTIALS} --region ${AWS_REGION} --dir workspacePath"
+                    sh "eb deploy ${EB_ENVIRONMENT_NAME} --profile ${AWS_CREDENTIALS} --region ${AWS_REGION} --dir ${workspacePath}"
                 }
             }
         }
