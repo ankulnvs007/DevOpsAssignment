@@ -67,10 +67,10 @@ pipeline {
                 // Deploy the application to Elastic Beanstalk
                 withAWS(credentials: AWS_CREDENTIALS, region: AWS_REGION) {
                     // Get the application path dynamically
-                    def appPath = pwd()
+                    def workspacePath = env.WORKSPACE
                     
                     // Deploy the application to Elastic Beanstalk
-                    sh "eb deploy ${EB_ENVIRONMENT_NAME} --profile ${AWS_CREDENTIALS} --region ${AWS_REGION} --dir ${appPath}"
+                    sh "eb deploy ${EB_ENVIRONMENT_NAME} --profile ${AWS_CREDENTIALS} --region ${AWS_REGION} --dir workspacePath"
                 }
             }
         }
