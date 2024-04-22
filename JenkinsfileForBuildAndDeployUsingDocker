@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         IMAGE_NAME = 'ankulnvs007/devopsdotnetapi'
-        IMAGE_TAG = 'latest
+        IMAGE_TAG = 'latest'
         EB_APPLICATION_NAME = 'jenkins-beanstalk'
         EB_ENVIRONMENT_NAME = 'jenkins-beanstalk-env'
         AWS_REGION = 'ap-south-1'
