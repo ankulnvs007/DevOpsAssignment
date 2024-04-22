@@ -64,7 +64,7 @@ pipeline {
             def awsRegion = 'ap-south-1' // Define the AWS region variable
             withAWS(region: awsRegion, credentials: 'jenkins-user-credentials') {
                 def elasticBeanstalk = [$class: 'AWSEBDeploymentBuilder',
-                                        region: awsRegion, // Reference the AWS region variable
+                                        region: ap-south-1, // Reference the AWS region variable
                                         applicationName: 'jenkins-beanstalk',
                                         environmentName: 'jenkins-beanstalk-env']
                 elasticBeanstalk.deployApplication(versionLabel: 'latest')
