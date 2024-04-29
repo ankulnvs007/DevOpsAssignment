@@ -59,27 +59,5 @@ pipeline {
                 }
             }
         }
-        stage('Deploy to AWS') {
-            steps {
-                script {
-                    def elasticBeanstalk = [
-                        $class: 'AWSEBDeploymentBuilder',
-                        credentialsId: 'jenkins-user-credential',
-                        region: 'ap-south-1',
-                        applicationName: 'jenkins-beanstalk',
-                        environmentName: 'jenkins-beanstalk-env'
-                    ]
-        
-                    try {
-                        def deployer = new AWSEBDeployment()
-                        deployer.deploy elasticBeanstalk
-                        echo "Application deployed successfully"
-                    } catch (err) {
-                        echo "Error deploying application to Elastic Beanstalk environment: ${err.message}"
-                        currentBuild.result = 'FAILURE'
-                    }
-                }
-            }
-        }
     }
 }
